@@ -1,4 +1,6 @@
 <?php
+require_once 'includes/header.php';
+
 $title ='Login page';
 require_once '../controller/user_controller.php' ;
 
@@ -22,4 +24,3 @@ Login($_user);
     <a href="">Forgot Password</a>
 </form>
 <br>
-<?php require_once 'includes/footer.php'?>

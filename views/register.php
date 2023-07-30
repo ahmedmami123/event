@@ -8,6 +8,8 @@
 <?php
     $title = 'Index'; 
     require_once '../db/config.php'; 
+require_once 'includes/header.php';
+
 ?>
 <!-- 
         - First name
@@ -54,3 +56,12 @@
     </form>
 </div>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<?php
+require_once 'includes/footer.php' ;
+?>

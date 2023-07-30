@@ -11,9 +11,12 @@ try {
 }catch(PDOException $e) {
     throw new PDOException($e->getMessage());
 }
-require_once '../models/user.php' ;
+require_once '../models/user.php';
+require_once '../models/event.php';
+
 
 $_user=new _user($pdo);
+$event= new event($pdo)
 
 
 ?>

@@ -6,7 +6,7 @@ include_once 'includes/session.php'?>
 <!doctype html>
 <html lang="en">
 
-<head>mazdet chye b3ed logout ??
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -31,7 +31,7 @@ include_once 'includes/session.php'?>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link active" href="register.php">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="AddEvent.php">View Attendees</a>
+                <a class="nav-item nav-link" href="AddEvent.php">ajouter evenement</a>
             </div>
             <div class="navbar-nav ml-auto">
                 <?php 

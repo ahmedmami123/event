@@ -15,7 +15,7 @@
         - Email Address
         - Contact Number
      -->
-<h1 class="text-center">Add Event</h1>
+<div class="viewstext">Ajouter un evenement</div>
 
 <form method="post" action="succ_event.php" enctype="multipart/form-data">
     <div class="form-group">
@@ -44,7 +44,7 @@
     </div>
 
 
-    <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
+    <button type="submit" name="submit" class="btn btn-secondary btn-block">Submit</button>
 </form>
 <br>
 <br>

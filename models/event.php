@@ -8,7 +8,21 @@ class event{
     {
         $this->db=$conn;
     }
-    //function to insert a new record into the attendee database
+    public function getEventById($id){
+        try{
+            $sql="SELECT count(*) as num FROM event where id= :id";
+            $stmt=$this->db->prepare($sql);
+            $stmt->bindparam(':id',$id);
+
+            $stmt->execute();
+            $result=$stmt->fetch();
+            return $result;
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    //function to insert a new record into the event database
     public function insertEvent($eventname,$description,$date_debut,$date_fin,$event_affiche){
 try {
     // define sql statement to be executed
@@ -34,7 +48,7 @@ echo $e->getMessage();
 return false;
 }
     }
-    public function GetEdit(){
+    public function GetEvent(){
         try{
             $sql="SELECT * FROM `event`";
             $results=$this->db->query($sql);

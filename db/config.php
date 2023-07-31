@@ -13,10 +13,14 @@ try {
 }
 require_once '../models/user.php';
 require_once '../models/event.php';
+require_once '../models/inscription.php';
+
 
 
 $_user=new _user($pdo);
-$event= new event($pdo)
+$event= new event($pdo);
+$inscri=new inscri($pdo);
+
 
 
 ?>

@@ -7,7 +7,7 @@ require_once '../controller/user_controller.php' ;
 //check if date submitted by post
 Login($_user);
 ?>
-<h1 class="text-center"><?php echo $title ?></h1>
+<div class="viewstext"><?php echo $title ?></div>
 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']);?>" method="post">
     <table class="table table-sm">
         <tr>
@@ -19,8 +19,8 @@ Login($_user);
             <td><label for="password">Password : *</label></td>
             <td><input type="password" name="password" class="form-control" id="password"></td>
         </tr>
-    </table><br><br>
-    <input type="submit" value="Login" class="btn btn-primary btl-block"><br>
+    </table>
+    <input type="submit" value="Login" class="btn btn-secondary btn-block"><br>
     <a href="">Forgot Password</a>
 </form>
 <br>

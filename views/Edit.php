@@ -4,7 +4,6 @@
     require_once '../views/includes/header.php'; 
     require_once '../db/config.php'; 
     if(!isset($_GET['id'])){
-        // echo 'error';
 echo 'error';
         header("location:view_event.php");
     

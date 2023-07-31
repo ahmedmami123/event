@@ -71,6 +71,20 @@ class _user{
             return false;
         }
     }
+    public function getUserByUser_id($id){
+        try{
+            $sql="SELECT * FROM user where user_id= :user_id";
+            $stmt=$this->db->prepare($sql);
+            $stmt->bindparam(':user_id',$id);
+
+            $stmt->execute();
+            $result=$stmt->fetch();
+            return $result;
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
 }
 ?>

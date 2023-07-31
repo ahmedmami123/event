@@ -1,7 +1,10 @@
 <?php 
 //This includes the session file. This file contains code that starts/resumes a session. 
 //By having it in the header file, it will be included on every page, allowing session capability to be used on every page across the website.
-include_once 'includes/session.php'?>
+include_once 'includes/session.php';
+require_once '../controller/user_controller.php' ;
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -17,34 +20,49 @@ include_once 'includes/session.php'?>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <link rel="stylesheet" href="css/site.css" />
-
+    <link href="style.css" rel="stylesheet">
     <title>Event - <?php echo $title ?></title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="index.php">IT Conference</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link active" href="register.php">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="AddEvent.php">ajouter evenement</a>
-            </div>
-            <div class="navbar-nav ml-auto">
-                <?php 
+    <div class="ahmed">
+        <div class="nav1">
+            <h1>Evenement</h1>
+        </div>
+        <div class="nav2">
+
+            <?php
+           
+            if(isset( $_SESSION['user_id'])){
+                $id=$_SESSION['user_id'];
+
+                $reslut=$_user->getUserByUser_id($id);
+              if($reslut['user_type']=='admin'||$reslut['user_type']=='user'){?>
+            <a href="AddEvent.php">ajouter evenement</a>
+
+            <a href="view_event.php">View evenement</a>
+
+
+
+            <?php }}
               if(!isset($_SESSION['user_id'])){
           ?>
-                <a class="nav-item nav-link" href="Login.php">Login <span class="sr-only">(current)</span></a>
-                <?php } else { ?>
-                <a class="nav-item nav-link" href="#"><span>Hello ! </span> <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
-                <?php } ?>
-            </div>
+            <a href="register.php">Inscription</a>
+            <a href="Login.php">Login <span class="sr-only">(current)</span></a>
+            <?php } else {
+  if(isset( $_SESSION['user_id'])){
+                if($reslut['user_type']=='admin'){
+                ?>
+            <a href="view_user.php">View Users</a>
+            <?php  }}?>
+            <a href="#"><span>Hello ! <?php echo $reslut['firstname'] ?></span> <span
+                    class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
+            <?php } ?>
         </div>
-    </nav>
-    <div class="container">
+
+    </div>
+
+    <div class="container_ahmed">
 
         <br />

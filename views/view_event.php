@@ -4,18 +4,20 @@ require_once 'includes/header.php';
 
 
 require_once '../controller/event_controller.php' ;
+require_once '../controller/user_controller.php' ;
+
 
 
 
 
 ?>
-<h1 class="text-center">View Records</h1>
+<div class="viewstext">Views evenement</div>
 
 <table class="table">
     <tr>
         <th>#</th>
         <th> Titre d'evenement </th>
-        <th>Description</th>
+
         <th>Date de debut</th>
         <th>Date de fin</th>
         <th>Actions</th>
@@ -23,7 +25,7 @@ require_once '../controller/event_controller.php' ;
     </tr>
 
     <?php 
-view_evenment($event);
+view_evenment($event,$_user);
 
 ?>
 
@@ -31,7 +33,6 @@ view_evenment($event);
 
 
 </table>
-
 
 
 <br>

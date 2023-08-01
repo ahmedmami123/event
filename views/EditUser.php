@@ -79,6 +79,3 @@ $result=$_user->getUserDetails($id);
 <br>
 <br>
 <br>
-<?php
-require_once 'includes/footer.php' ;
-?>

@@ -58,7 +58,7 @@ require_once '../controller/user_controller.php' ;
                 ?>
             <a href="view_user.php">View Users</a>
             <?php  }}?>
-            <a href="../views/EditUser.php?id=<?php echo $id?>"><span>Hello !
+            <a href="../views/veiwUser.php?id=<?php echo $id?>"><span>Hello !
                     <?php echo $reslut['firstname'] ?></span> <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
             <?php } ?>

@@ -38,7 +38,7 @@ function insert_event($event){
        
     
         if($result){
-            echo 'succ';
+            header("location:view_event.php");
         
         
         }

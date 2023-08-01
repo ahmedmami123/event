@@ -12,11 +12,24 @@ function insert_user($_user){
         $password=$_POST['password'];
         $dob=$_POST['dob'];
         $user_type=$_POST['user_type'];
-    $result=$_user->InsertUser($fname,$lname,$email,$password,$dob,$user_type);
+        $orig_file = $_FILES["avatar"]["tmp_name"];
+        $ext = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
+        $target_dir = '../UploadsUserPath/';
+        if($orig_file!=null){
+            $UploadsUserPath = "$target_dir$email.$ext";
+
+        }else{
+            $UploadsUserPath =null;
+          
+
+        }
+
+        move_uploaded_file($orig_file,$UploadsUserPath);
+    $result=$_user->InsertUser($fname,$lname,$email,$password,$dob,$user_type,$UploadsUserPath);
        
     
         if($result){
-            echo 'succ';
+            header("location:Login.php");
         
         
         }
@@ -68,9 +81,10 @@ function view_User($_user){
                 $password=$_POST['password'];
                 $dob=$_POST['dob'];
                 $user_type=$_POST['user_type'];
+               
             $result=$_user->EditUser($id,$fname,$lname,$email,$password,$dob,$user_type);
                 if($result){
-            header("location:view_event.php");
+            header("location:veiwUser.php?id=$id.php");
         }
             else
             {
@@ -137,7 +151,7 @@ function affichaheUser($_user){
     <td>
 
 
-        <a href="#" class="btn btn-warning">Edit</a>
+
 
 
         <a href="../views/delreservbyuser.php?id=<?php echo $r['user_id']?>"
@@ -177,14 +191,16 @@ function affichaheUser($_user){
             else{
             $id=$_GET['id'];
             $result=$_user->getUserDetails($id);
-            
+            $user_id=$_SESSION['user_id'];
             
             ?>
 
 <div class="viewstext">View User details </div>
 
-<div class="viewD">
-    <div class="d2">
+<div class="viewD" style="margin-top:-100px;">
+    <div class="d1">
+        <img src=<?php echo empty($result['user_Path']) ? "Uploads\av.jpg" :$result['user_Path']; ?>
+            style="width:80%;" />
     </div>
     <div class="d2">
 
@@ -194,8 +210,8 @@ function affichaheUser($_user){
 
 
 
-
             </div>
+
 
             <br>
             <div class="btns">
@@ -206,7 +222,8 @@ function affichaheUser($_user){
         
         
  ?>
-                <a href="#" class="btn btn-warning" style="width: 187px; margin-top: 10px;">Edit</a>
+                <a href="../views/EditUser.php?id=<?php echo $id?>" class="btn btn-warning"
+                    style="width: 187px; margin-top: 10px;">Edit</a>
 
                 <?php 
         
@@ -231,7 +248,8 @@ echo "<div class='alert alert-danger'>Username or Password are incorrect</div>";
 }else{
 $_SESSION['email'] = $email;
 $_SESSION['user_id'] = $result['user_id'];
-header("location: test.php");
+$id=$_SESSION['user_id'];
+header("location: veiwUser.php?id=$id");
 
 }
 }

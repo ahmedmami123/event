@@ -44,6 +44,9 @@ require_once '../controller/user_controller.php' ;
 
 
 
+
+
+
             <?php }}
               if(!isset($_SESSION['user_id'])){
           ?>
@@ -55,8 +58,8 @@ require_once '../controller/user_controller.php' ;
                 ?>
             <a href="view_user.php">View Users</a>
             <?php  }}?>
-            <a href="#"><span>Hello ! <?php echo $reslut['firstname'] ?></span> <span
-                    class="sr-only">(current)</span></a>
+            <a href="../views/EditUser.php?id=<?php echo $id?>"><span>Hello !
+                    <?php echo $reslut['firstname'] ?></span> <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
             <?php } ?>
         </div>

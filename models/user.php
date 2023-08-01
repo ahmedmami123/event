@@ -44,6 +44,7 @@ class _user{
     
     public function GettUser($email,$password){
         try{
+            
             $sql="SELECT * FROM user where email=:email and password=:password";
             $stmt=$this->db->prepare($sql);
             $stmt->bindparam(':email',$email);
@@ -57,11 +58,85 @@ class _user{
             return false;
         }
     }
+    public function GetTousUser(){
+        try{
+            $sql="SELECT * FROM `user`";
+            $results=$this->db->query($sql);
+            return $results;
+        }catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+    }
+    public function EditUser($id,$firstname,$lastname,$email,$password,$dob,$user_type){
+        try {
+            $new_password=md5($password.$email);
+            $sql="UPDATE `user` SET `firstname`=:firstname,`lastname`=:lastname,`email`=:email,`password`=:password,`dob`=:dob,`user_type`=:user_type WHERE user_id= :id";
+            $stmt=$this->db->prepare($sql);
+            //bin all placeholders to the actual values
+            $stmt->bindparam(':id',$id);
+        
+            $stmt->bindparam(':firstname',$firstname);
+            $stmt->bindparam(':lastname',$lastname);
+            $stmt->bindparam(':email',$email);
+            $stmt->bindparam(':password',$new_password);
+            $stmt->bindparam(':dob',$dob);
+            $stmt->bindparam(':user_type',$user_type);
+
+            //execute statment
+                $stmt->execute();
+                return true;   
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+        
+        }
+        public function DeleteUser($id){
+            try {
+                $sql="DELETE from user where user_id=:id";
+            $stmt=$this->db->prepare($sql);
+            $stmt->bindparam(':id',$id);
+            $stmt->execute();
+            return true;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                return false;
+            }
+        }
+    public function getUserDetails($id){
+        try{
+            $sql="SELECT * FROM `user` where user_id = :id";
+            $stmt=$this->db->prepare($sql);
+            $stmt->bindparam(':id',$id);
+            $stmt->execute();
+            $result=$stmt->fetch();
+            return $result;
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+
+}
     public function getUserByEmail($email){
         try{
             $sql="SELECT count(*) as num FROM user where email= :email";
             $stmt=$this->db->prepare($sql);
             $stmt->bindparam(':email',$email);
+
+            $stmt->execute();
+            $result=$stmt->fetch();
+            return $result;
+        }catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    public function getUserByidsum($id){
+        try{
+            $sql="SELECT count(*) as num FROM user where userid= :id";
+            $stmt=$this->db->prepare($sql);
+            $stmt->bindparam(':id',$id);
 
             $stmt->execute();
             $result=$stmt->fetch();

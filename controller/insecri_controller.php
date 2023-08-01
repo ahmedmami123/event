@@ -4,63 +4,65 @@ require_once '../models/inscription.php' ;
 include_once '../views/includes/session.php';
 require_once '../models/user.php' ;
 
+
+
+
 function view_iscri($inscri,$_user,$event){
 
     $id=$_GET['id'];
-    
-    $result=$inscri->getInscriByEevnt_id($id);
-    
-    if($result){
-        echo 'succ';
+    $result=$inscri->GetReservation($id);
+   
+
     
     
-    }
-    else{
-       echo 'error';
-    
-    
-    } 
-    while($r = $result->fetch(PDO::FETCH_ASSOC)){
-        $id=$r['user_id'];
-      
-        ?>
+    while($r = $result->fetch(PDO::FETCH_ASSOC)){?>
 <tr>
 
+
+
     <?php 
-        $result1=$_user->getUserByUser_id($id);
-       
-        $result2=$event->getEventDetails($id);
-        ?>
-<tr>
-    <th><?php echo $result1['user_id']?></th>
-    <th><?php echo $result1['firstname']?> </th>
-    <th><?php echo $result1['lastname']?> </th>
-    <th><?php echo $result1['dob']?> </th>
-    <th><?php echo $result1['email']?> </th>
-    <th>
-        <?php 
-        $id1=$_GET['id'];
-        $result2=$event->getEventDetails($id1);
-        ?>
-        <a onclick="return confirm('Are you sure you want to delete this record?');"
-            href="../views/delInscri.php?id=<?php echo $result2['event_id']?>" class="btn btn-dark"> Annuler
-            Reservation</a>
-    </th>
+    $user_id=$r['user_id'];
+    $reslut1=$_user->getUserByUser_id($user_id);
+    ?>
+    <td><?php echo $reslut1['user_id']?></td>
+
+    <td><?php echo $reslut1['firstname']?></td>
+
+    <td><?php echo $reslut1['lastname']?></td>
+    <td><?php echo $reslut1['dob']?></td>
+    <td><?php echo $reslut1['email']?></td>
+
+
+    <td><a onclick="return confirm('Are you sure you want to delete this record?');"
+            href="../views/delAdminInscri.php?id=<?php echo $r['inscri_id']?>" class="btn btn-dark"
+            style="width: 187px; margin-top: 10px;">Annuler
+            Reservation</a></td>
+
+
+
+
 
 
 
 
 
 </tr>
+<?php
+            }
+   
 
 
 
 
 
 
-<?php }    
+
+
+
+
+ }    
     
-}
+
 
 
 function delete_Inscri($inscri)
@@ -80,6 +82,53 @@ function delete_Inscri($inscri)
         //Redirct TO index.php
     if($result){
         header("location:view_event.php");}
+        else
+        {
+            echo 'error';
+    }
+    }
+}
+function delete_re($inscri)
+{
+    if(!$_GET['id']){
+       
+        echo 'error';
+        header("location:view_event.php");
+    
+    }else{
+    //get id values    
+        $id=$_GET['id'];
+    // Call Crud Function
+        $result=$inscri->DeleteReservationbyid($id);
+        //Redirct TO index.php
+    if($result){
+        header("location:deletUser.php?id=$id");
+    }
+        else
+        {
+            echo 'error';
+    }
+    }
+}
+function Admin_delete_Res($inscri)
+{
+    if(!$_GET['id']){
+       
+        echo 'error';
+        // header("location:view_event.php");
+    
+    }else{
+    //get id values    
+        $reser_id=$_GET['id'];
+$r=$inscri->getInscriByuser_id($reser_id);
+$user_id=$r['user_id'];
+
+    // Call Crud Function;
+        $result=$inscri->DeleteReservation($reser_id,$user_id);
+        //Redirct TO index.php
+    if($result){
+        header("location:view_reserv.php?id=$reser_id");
+    }
         else
         {
             echo 'error';

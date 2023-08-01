@@ -19,7 +19,32 @@ class inscri{
     }
 
 }
- 
+public function getInscriByuser_id($id){
+    try{
+        $sql="SELECT * FROM `inscription` where inscri_id = :id";
+        $stmt=$this->db->prepare($sql);
+        $stmt->bindparam(':id',$id);
+        $stmt->execute();
+        $result=$stmt->fetch();
+        return $result;
+    }catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+
+}
+public function getInscriByEevnt_idUser($user_id,$event_id){
+    try{
+     
+        $sql="SELECT * FROM `inscription` where event_id=$event_id and user_id=$user_id";
+        $results=$this->db->query($sql);
+        return $results;
+    }catch (PDOException $e) {
+    echo $e->getMessage();
+    return false;
+}
+
+}
 public function getUserByid($user_id){
     try{
         $sql="SELECT count(*) as num FROM inscription where user_id= :user_id";
@@ -51,6 +76,33 @@ public function getUserEventByid($user_id,$event_id){
     }
 }
 
+
+public function DeleteReservation($id,$user_id,){
+    try {
+        $sql="DELETE from inscription where inscri_id=:id and user_id=:user_id";
+    $stmt=$this->db->prepare($sql);
+    $stmt->bindparam(':user_id',$user_id);
+    $stmt->bindparam(':id',$id);
+
+    $stmt->execute();
+    return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
+public function DeleteReservationbyid($id){
+    try {
+        $sql="DELETE from inscription where user_id=:id";
+    $stmt=$this->db->prepare($sql);
+    $stmt->bindparam(':id',$id);
+    $stmt->execute();
+    return true;
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        return false;
+    }
+}
     //function to insert a new record into the attendee database
     public function insert_inscription($user_id,$event_id){
         try {
@@ -81,7 +133,16 @@ public function getUserEventByid($user_id,$event_id){
         }
             }
 
-
+            public function GetReservation($id){
+                try{
+                    $sql="SELECT * FROM `inscription` where event_id=$id";
+                    $results=$this->db->query($sql);
+                    return $results;
+                }catch (PDOException $e) {
+                echo $e->getMessage();
+                return false;
+            }
+            }
             public function DelInscription($user_id,$event_id){
                 try {
                     $sql="DELETE from inscription where event_id=:event_id and user_id=:user_id";
